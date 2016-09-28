@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-sprockets-require",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Compile sprockets requires to commonjs requires",
   "repository": "https://github.com/maur8ino/babel-plugin-transform-sprockets-require",
   "license": "MIT",

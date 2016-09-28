@@ -11,7 +11,7 @@ function trim(str) {
 describe('compare fixtures', () => {
   const fixturesDir = path.join(__dirname, 'fixtures');
   fs.readdirSync(fixturesDir).map((caseName) => {
-    it(`should ${caseName.split('-').join(' ')}`, () => {
+    it(`with ${caseName.split('-').join(' ')}`, () => {
       const fixtureDir = path.join(fixturesDir, caseName);
       let actualPath = path.join(fixtureDir, 'actual.js');
       const actual = transformFileSync(actualPath, {
