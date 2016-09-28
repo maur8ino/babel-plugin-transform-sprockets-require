@@ -1,3 +1,4 @@
+import test from 'ava';
 import path from 'path';
 import fs from 'fs';
 import assert from 'assert';
@@ -8,27 +9,29 @@ function trim(str) {
   return str.replace(/^\s+|\s+$/g, '');
 }
 
-describe('compare fixtures', () => {
-  const fixturesDir = path.join(__dirname, 'fixtures');
-  fs.readdirSync(fixturesDir).map((caseName) => {
-    it(`with ${caseName.split('-').join(' ')}`, () => {
-      const fixtureDir = path.join(fixturesDir, caseName);
-      let actualPath = path.join(fixtureDir, 'actual.js');
-      const actual = transformFileSync(actualPath, {
-        plugins: [plugin],
-        babelrc: false
-      }).code;
+const defaultTestCases = ['absolute-path', 'relative-path'];
+const fixturesDir = path.join(__dirname, 'fixtures');
 
-      if (path.sep === '\\') {
-        // Specific case of windows, transformFileSync return code with '/'
-        actualPath = actualPath.replace(/\\/g, '/');
-      }
+const testHelper = (testCaseName, pluginOptions = {}) => {
+  return test(`compare fixtures with ${testCaseName.split('-').join(' ')}`, t => {
+    const fixtureDir = path.join(fixturesDir, testCaseName);
+    let actualPath = path.join(fixtureDir, 'actual.js');
+    const actual = transformFileSync(actualPath, {
+      plugins: [[plugin, pluginOptions]],
+      babelrc: false
+    }).code;
 
-      const expected = fs.readFileSync(
-        path.join(fixtureDir, 'expected.js')
-      ).toString().replace(/%FIXTURE_PATH%/g, actualPath);
+    if (path.sep === '\\') {
+      // Specific case of windows, transformFileSync return code with '/'
+      actualPath = actualPath.replace(/\\/g, '/');
+    }
 
-      assert.equal(trim(actual), trim(expected));
-    });
+    const expected = fs.readFileSync(
+      path.join(fixtureDir, 'expected.js')
+    ).toString().replace(/%FIXTURE_PATH%/g, actualPath);
+
+    t.is(trim(actual), trim(expected));
   });
-});
+};
+
+defaultTestCases.map(testCaseName => testHelper(testCaseName));
