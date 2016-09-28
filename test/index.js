@@ -5,7 +5,7 @@ import { transformFileSync } from 'babel-core';
 import plugin from '../src';
 
 function trim(str) {
-  return str.replace(/^\s+|\s+$/, '');
+  return str.replace(/^\s+|\s+$/g, '');
 }
 
 describe('compare fixtures', () => {
