@@ -10,28 +10,37 @@ function trim(str) {
 }
 
 const defaultTestCases = ['absolute-path', 'relative-path'];
+const withBlacklistTestCases = ['absolute-path-with-blacklist'];
+const withRegExpBlacklistTestCases = ['absolute-path-with-regexp-blacklist'];
 const fixturesDir = path.join(__dirname, 'fixtures');
 
 const testHelper = (testCaseName, pluginOptions = {}) => {
-  return test(`compare fixtures with ${testCaseName.split('-').join(' ')}`, t => {
+  test(`compare fixtures with ${testCaseName.split('-').join(' ')}`, t => {
     const fixtureDir = path.join(fixturesDir, testCaseName);
     let actualPath = path.join(fixtureDir, 'actual.js');
-    const actual = transformFileSync(actualPath, {
+    const actual = trim(transformFileSync(actualPath, {
       plugins: [[plugin, pluginOptions]],
       babelrc: false
-    }).code;
+    }).code);
 
     if (path.sep === '\\') {
       // Specific case of windows, transformFileSync return code with '/'
       actualPath = actualPath.replace(/\\/g, '/');
     }
 
-    const expected = fs.readFileSync(
+    const expected = trim(fs.readFileSync(
       path.join(fixtureDir, 'expected.js')
-    ).toString().replace(/%FIXTURE_PATH%/g, actualPath);
+    ).toString().replace(/%FIXTURE_PATH%/g, actualPath));
 
-    t.is(trim(actual), trim(expected));
+    t.is(actual, expected);
   });
 };
 
+// Testing various cases
 defaultTestCases.map(testCaseName => testHelper(testCaseName));
+withBlacklistTestCases.map(testCaseName => testHelper(testCaseName, {
+  blacklist: [ 'jquery' ]
+}));
+withRegExpBlacklistTestCases.map(testCaseName => testHelper(testCaseName, {
+  blacklist: [ /redux/ ]
+}));
