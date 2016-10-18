@@ -1,4 +1,5 @@
 //= require jquery
+//= require underscore
 // I'm a oneline comment
 //= require react
 /**

@@ -39,8 +39,8 @@ const testHelper = (testCaseName, pluginOptions = {}) => {
 // Testing various cases
 defaultTestCases.map(testCaseName => testHelper(testCaseName));
 withBlacklistTestCases.map(testCaseName => testHelper(testCaseName, {
-  blacklist: [ 'jquery' ]
+  blacklist: [ 'jquery', 'underscore', 'handlebars.runtime' ]
 }));
 withRegExpBlacklistTestCases.map(testCaseName => testHelper(testCaseName, {
-  blacklist: [ /redux/ ]
+  blacklist: [ /redux/, /handlebars/ ]
 }));

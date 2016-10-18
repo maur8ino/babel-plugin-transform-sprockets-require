@@ -6,5 +6,7 @@
   multiline
   comment
   **/
+//= require handlebars
+//= require handlebars.runtime
 //= require redux
 //= require react-redux
