@@ -1,4 +1,4 @@
-const sprockets_require_regex = /=\s+require\s+([\S]+)/;
+const sprockets_require_regex = /=\s*require\s+([\S]+)/;
 
 export default function ({ types: t, template }) {
   const buildRequire = template(`require(SOURCE);`);

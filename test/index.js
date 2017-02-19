@@ -9,7 +9,7 @@ function trim(str) {
   return str.replace(/^\s+|\s+$/g, '');
 }
 
-const defaultTestCases = ['absolute-path', 'relative-path'];
+const defaultTestCases = ['absolute-path', 'relative-path', 'spaces'];
 const withBlacklistTestCases = ['absolute-path-with-blacklist'];
 const withRegExpBlacklistTestCases = ['absolute-path-with-regexp-blacklist'];
 const fixturesDir = path.join(__dirname, 'fixtures');
