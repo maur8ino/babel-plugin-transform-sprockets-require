@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/maur8ino/babel-plugin-transform-sprockets-require.svg?branch=master)](https://travis-ci.org/maur8ino/babel-plugin-transform-sprockets-require)
 [![bitHound Overall Score](https://www.bithound.io/github/maur8ino/babel-plugin-transform-sprockets-require/badges/score.svg)](https://www.bithound.io/github/maur8ino/babel-plugin-transform-sprockets-require)
 [![bitHound Code](https://www.bithound.io/github/maur8ino/babel-plugin-transform-sprockets-require/badges/code.svg)](https://www.bithound.io/github/maur8ino/babel-plugin-transform-sprockets-require)
-### What it is?
+### What is it?
 
 Babel plugin to transform sprockets'
 
